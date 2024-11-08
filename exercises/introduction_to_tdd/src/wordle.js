@@ -1,49 +1,20 @@
 /**
- * createGame
- *
- * - check if a value is a number: `typeof value === "number"`
- * - check if a value is a Boolean: `typeof value === "boolean"`
- * - check if a value is a string: `typeof value === "string"`
- * - check if a value is _not_ a string: `typeof value !== "string"`
- * - check if a string is of a certain length: `string.length === n`
- * - check if an array contains a certain kind of value: `array.some(predicate)`,
- *   e.g. `array.some((value) => typeof value === "number")`
- */
-export const createGame = (dictionary, answer) => {
-  if (!Array.isArray(dictionary) || dictionary.length === 0) {
-    throw new Error("bad or missing dictionary");
-  }
+example JavaScript function (exported):
+---------------------------------------
 
-  if (!dictionary.includes(answer)) {
-    throw new Error("answer not in dictionary");
-  }
+export const nameOfTheFunction = (arg1, arg2, arg3) => {
+  const array1 = [1, 2, 3, 4, 5];
+  const array2 = ["a", "b", "c", "d", "e"];
 
-  return {
-    dictionary,
-    answer,
-    guesses: [],
-  };
-};
+  array1.forEach((element, index) => {
+    array2[index] = "x"; // elements inside `const` arrays can be reassigned
+  });
+  // array2 is now equal to ["x", "x", "x", "x", "x"]
 
-/**
- * makeGuess
- *
- * - create an object: `{ property1: value1, property2: value2 }`
- * - create an array: `[element1, element2]`
- * - copy an object with one value changed: `{ ...oldObject, property: newValue }`
- * - copy an array with new element at the end: `[...oldArray, newElement]`
- * - check if array includes an element: `array.includes(element)`
- * - check if array _doesn't_ include an element: `!array.includes(element)`
- */
+  const stringAsArray = "abcde".split(""); // stringAsArray equals ["a", "b", "c", "d", "e"]
 
-/**
- * evaluateGuess
- * - create an array of characters: e.g. `const array = ["-", "-", "-", "-", "-"]`
- * - split a string into an array of characters: `string.split("")`
- * - collapse an array of characters into a string: `array.join("")`
- * - loop through an array of characters: `array.forEach((char, index) => { ... })`
- * - index a character on a string or element on an array: `string[index]` or `array[index]`
- * - change an element in an array: `array[index] = newValue`
- *   (note this _doesn't_ work on strings, only arrays)
- * - check if a character is included in a string: `string.includes(char)`
- */
+  const arrayAsString = stringAsArray.join(""); // arrayAsString equals "abcde"
+
+  return 42; // value to return from the function
+}
+*/
