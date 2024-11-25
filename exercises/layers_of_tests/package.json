@@ -1,0 +1,19 @@
+{
+  "name": "whale_provider",
+  "version": "1.0.0",
+  "description": "Provides whales",
+  "main": "src/serve.js",
+  "scripts": {
+    "start-api": "bun run --watch api/serve.js",
+    "start-db": "bun run --watch db/serve.js",
+    "test-api": "bun test --watch api",
+    "test-db": "bun test --watch db",
+    "test-integration": "bun test tests/integration.test.js",
+    "test-system": "bun test tests/system.test.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pg": "^8.8.0"
+  }
+}
