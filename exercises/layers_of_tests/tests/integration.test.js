@@ -14,6 +14,7 @@ afterEach(async () => {
   await dao.reset();
 });
 
+// exercise 2, step 1 - read this test
 test("`createGame` returns the game with its ID", async () => {
   const game = createGame(["abcde", "axxxb"], "abcde");
   const createdGame = await dao.createGame(game);
@@ -21,6 +22,7 @@ test("`createGame` returns the game with its ID", async () => {
   expect(createdGame).toEqual({ ...game, id: createdGame.id });
 });
 
+// exercise 6, step 5 - unskip the two tests below
 test.skip("`getGame` returns the game", async () => {
   const game = createGame(["abcde", "axxxb"], "abcde");
   const createdGame = await dao.createGame(game);

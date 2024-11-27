@@ -9,6 +9,7 @@ export const reset = async () => {
   await run(query);
 };
 
+// exercise 2, step 3 - uncomment this code
 export const createGame = async (game) => {
   // const id = crypto.randomUUID();
   // const query = "INSERT INTO games (id, json) VALUES ($id, $json)";
@@ -17,6 +18,7 @@ export const createGame = async (game) => {
   // return { ...game, id };
 };
 
+// exercise 6, step 6 - uncomment the implementations of the two functions below
 export const getGame = async (id) => {
   // const query = "SELECT * FROM games WHERE id=$id";
   // const parameters = { $id: id };
