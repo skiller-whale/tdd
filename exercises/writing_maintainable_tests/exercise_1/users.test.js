@@ -1,104 +1,55 @@
-import { describe, expect, test } from "bun:test";
-import { testAuthToken, testUsers } from "./test-utils.js";
+import { expect, test } from "bun:test";
+import { usersForTests } from "./test-utils.js";
+import Router from "./router.js"; // pretend this exists
+import MockDao from "./mock-dao.js"; // pretend this exists
 
-describe("GET /users", () => {
-  test("OK", async () => {
-    const response = await fetch("/users", {
-      method: "GET",
-      headers: { Authorization: `Bearer ${testAuthToken}` },
-    });
-    expect(response.status).toBe(200); // OK
-  });
-
-  test("bad token", async () => {
-    const response = await fetch("/users", {
-      method: "GET",
-      headers: { Authorization: "Bearer XXX" },
-    });
-    expect(response.status).toBe(401); // Unauthorized
-  });
-});
-
-describe("POST /users", () => {
-  test("OK", async () => {
-    const newUserOK = {
-      /** pretend there's valid user data in here */
-    };
-    const response = await fetch("/users", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${testAuthToken}` },
-      body: JSON.stringify(newUserOK),
-    });
-    expect(response.status).toBe(201); // Created
-  });
-
-  test("bad data", async () => {
-    const newUserBad = {
-      /** pretend there's invalid user data in here, e.g. missing fields */
-    };
-    const response = await fetch("/users", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${testAuthToken}` },
-      body: JSON.stringify(newUserBad),
-    });
-    expect(response.status).toBe(422); // Unprocessable Content
-  });
-
-  test("bad token", async () => {
-    const response = await fetch("/users", {
-      method: "POST",
-      headers: { Authorization: "Bearer XXX" },
-    });
-    expect(response.status).toBe(401); // Unauthorized
+test("get 0 users OK", async () => {
+  const testUsers = []; // empty array of users
+  const mockDao = new MockDao();
+  mockDao.setUsers(testUsers);
+  const router = new Router(mockDao);
+  const response = await router.get("/users");
+  expect(response.status).toBe(200); // OK
+  expect(response.headers.get("Content-Type")).toBe("application/json");
+  const payload = await response.json();
+  expect(payload).toEqual({
+    data: testUsers,
+    total: 0,
+    nextPage: null,
+    previousPage: null,
   });
 });
 
-describe("GET /users/:id", () => {
-  test("OK", async () => {
-    const response = await fetch(`/users/${testUsers[0].id}`, {
-      headers: { Authorization: `Bearer ${testAuthToken}` },
-    });
-    expect(response.status).toBe(200); // OK
-  });
-
-  test("bad ID", async () => {
-    const response = await fetch("/users/XXX", {
-      headers: { Authorization: `Bearer ${testAuthToken}` },
-    });
-    expect(response.status).toBe(404); // Not Found
-  });
-
-  test("bad token", async () => {
-    const response = await fetch(`/users/${testUsers[0].id}`, {
-      method: "POST",
-      headers: { Authorization: "Bearer XXX" },
-    });
-    expect(response.status).toBe(401); // Unauthorized
+test("get 10 users OK", async () => {
+  const testUsers = usersForTests.slice(0, 10); // array of 10 users
+  const mockDao = new MockDao();
+  mockDao.setUsers(testUsers);
+  const router = new Router(mockDao);
+  const response = await router.get("/users");
+  expect(response.status).toBe(200); // OK
+  expect(response.headers.get("Content-Type")).toBe("application/json");
+  const payload = await response.json();
+  expect(payload).toEqual({
+    data: testUsers,
+    total: 10,
+    nextPage: null,
+    previousPage: null,
   });
 });
 
-describe("DELETE /users/:id", () => {
-  test("OK", async () => {
-    const response = await fetch(`/users/${testUsers[0].id}`, {
-      method: "DELETE",
-      headers: { Authorization: `Bearer ${testAuthToken}` },
-    });
-    expect(response.status).toBe(204); // No Content
-  });
-
-  test("bad ID", async () => {
-    const response = await fetch("/users/XXX", {
-      method: "DELETE",
-      headers: { Authorization: `Bearer ${testAuthToken}` },
-    });
-    expect(response.status).toBe(404); // Not Found
-  });
-
-  test("bad token", async () => {
-    const response = await fetch(`/users/${testUsers[0].id}`, {
-      method: "POST",
-      headers: { Authorization: "Bearer XXX" },
-    });
-    expect(response.status).toBe(401); // Unauthorized
+test("get 20 users OK", async () => {
+  const testUsers = usersForTests.slice(0, 20); // array of 20 users
+  const mockDao = new MockDao();
+  mockDao.setUsers(testUsers);
+  const router = new Router(mockDao);
+  const response = await router.get("/users");
+  expect(response.status).toBe(200); // OK
+  expect(response.headers.get("Content-Type")).toBe("application/json");
+  const payload = await response.json();
+  expect(payload).toEqual({
+    data: testUsers.slice(0, 10),
+    total: 20,
+    nextPage: 2,
+    previousPage: null,
   });
 });
