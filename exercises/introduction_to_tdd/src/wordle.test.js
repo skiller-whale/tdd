@@ -15,5 +15,3 @@ test.todo('`evaluateGuess` result includes `"-"`s for letters not in the answer'
 test.todo('`evaluateGuess` result includes `"g"`s for letters in the right place');
 
 test.todo('`evaluateGuess` result includes `"o"`s for letters in the wrong place');
-
-test.todo("`evaluateGuess` is case-insensitive");
