@@ -1,0 +1,9 @@
+services:
+  tests:
+    image: oven/bun:1.1-alpine
+    volumes:
+      - ./src:/exercises/src
+      - ./package.json:/exercises/package.json
+    working_dir: /exercises
+    command: ["bun", "test", "--watch"]
+    init: true # to ensure signal handling works (and you can kill the container with ctrl-c)

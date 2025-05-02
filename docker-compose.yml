@@ -14,10 +14,3 @@ services:
       - ./attendance_id:/attendance_id:ro
     tty: true
     stdin_open: true
-  bun:
-    build:
-      context: .
-    ports:
-      - "3500:3500"
-    volumes:
-      - ./exercises:/exercises
