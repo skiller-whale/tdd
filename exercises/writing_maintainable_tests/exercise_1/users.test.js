@@ -1,7 +1,7 @@
 import { expect, test } from "bun:test";
 import { usersForTests } from "./test-utils.js";
-import Router from "./router.js"; // pretend this exists
-import MockDao from "./mock-dao.js"; // pretend this exists
+import Router from "./router.js";
+import MockDao from "./mock-dao.js";
 
 test("get 0 users OK", async () => {
   const testUsers = []; // empty array of users
@@ -10,7 +10,7 @@ test("get 0 users OK", async () => {
   const router = new Router(mockDao);
   const response = await router.get("/users");
   expect(response.status).toBe(200); // OK
-  expect(response.headers.get("Content-Type")).toBe("application/json");
+  expect(response.headers.get("Content-Type")).toBe("application/json;charset=utf-8");
   const payload = await response.json();
   expect(payload).toEqual({
     data: testUsers,
@@ -27,7 +27,7 @@ test("get 10 users OK", async () => {
   const router = new Router(mockDao);
   const response = await router.get("/users");
   expect(response.status).toBe(200); // OK
-  expect(response.headers.get("Content-Type")).toBe("application/json");
+  expect(response.headers.get("Content-Type")).toBe("application/json;charset=utf-8");
   const payload = await response.json();
   expect(payload).toEqual({
     data: testUsers,
@@ -44,7 +44,7 @@ test("get 20 users OK", async () => {
   const router = new Router(mockDao);
   const response = await router.get("/users");
   expect(response.status).toBe(200); // OK
-  expect(response.headers.get("Content-Type")).toBe("application/json");
+  expect(response.headers.get("Content-Type")).toBe("application/json;charset=utf-8");
   const payload = await response.json();
   expect(payload).toEqual({
     data: testUsers.slice(0, 10),

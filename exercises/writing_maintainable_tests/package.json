@@ -1,0 +1,10 @@
+{
+  "name": "writing_maintainable_tests",
+  "version": "1.0.0",
+  "main": "exercise_1/router.js",
+  "scripts": {
+    "test": "bun test --watch"
+  },
+  "author": "",
+  "license": "ISC"
+}
