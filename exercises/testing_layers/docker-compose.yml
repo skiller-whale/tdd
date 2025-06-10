@@ -1,0 +1,24 @@
+services:
+  dev-server:
+    image: oven/bun:1.1-alpine
+    ports:
+      - "3000:3000" # backend server
+      - "3001:3001" # frontend server
+    volumes:
+      - ./bin:/exercises/bin
+      - ./src:/exercises/src
+      - ./package.json:/exercises/package.json
+      - ./tsconfig.json:/exercises/tsconfig.json
+    working_dir: /exercises
+    command: ["bun", "run", "bin/serve.ts", "--watch"]
+    init: true # to ensure signal handling works (and you can kill the container with ctrl-c)
+  tests:
+    image: oven/bun:1.1-alpine
+    volumes:
+      - ./src:/exercises/src
+      - ./test:/exercises/test
+      - ./package.json:/exercises/package.json
+      - ./tsconfig.json:/exercises/tsconfig.json
+    working_dir: /exercises
+    command: ["bun", "test", "--watch"]
+    init: true # to ensure signal handling works (and you can kill the container with ctrl-c)

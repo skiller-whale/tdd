@@ -1,0 +1,17 @@
+{
+  "name": "experiment",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "bun install && bun x playwright install && bun test --watch",
+    "start": "bun install && bun run --watch bin/serve.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "playwright": "^1.52.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
