@@ -10,15 +10,17 @@ services:
       - ./package.json:/exercises/package.json
       - ./tsconfig.json:/exercises/tsconfig.json
     working_dir: /exercises
-    command: ["bun", "run", "bin/serve.ts", "--watch"]
+    command: ["bun", "run", "start"]
     init: true # to ensure signal handling works (and you can kill the container with ctrl-c)
   tests:
-    image: oven/bun:1.1-alpine
+    build:
+      context: .
+      dockerfile: Dockerfile
     volumes:
       - ./src:/exercises/src
-      - ./test:/exercises/test
+      - ./tests:/exercises/tests
       - ./package.json:/exercises/package.json
       - ./tsconfig.json:/exercises/tsconfig.json
     working_dir: /exercises
-    command: ["bun", "test", "--watch"]
+    entrypoint: ["bun", "run", "test"]
     init: true # to ensure signal handling works (and you can kill the container with ctrl-c)

@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "test": "bun install && bun x playwright install && bun test --watch",
+    "test": "bun install && bun test --watch",
     "start": "bun install && bun run --watch bin/serve.ts"
   },
   "devDependencies": {
