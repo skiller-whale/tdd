@@ -15,5 +15,5 @@ export async function getGuessEvaluations(gameId: string, request: Request): Pro
 
 export async function getWordValidation(request: Request): Promise<Response> {
   const { word } = (await request.json()) as { word: string };
-  return word === "hello" ? Response.json({ valid: false, error: "computer says no" }) : Response.json({ valid: true });
+  return Response.json({ valid: true });
 }

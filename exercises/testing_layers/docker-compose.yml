@@ -1,26 +1,25 @@
 services:
   dev-server:
-    image: oven/bun:1.1-alpine
+    image: "oven/bun:1.2"
     ports:
-      - "3000:3000" # backend server
-      - "3001:3001" # frontend server
+      - "3001:3001"
     volumes:
-      - ./bin:/exercises/bin
-      - ./src:/exercises/src
-      - ./package.json:/exercises/package.json
-      - ./tsconfig.json:/exercises/tsconfig.json
-    working_dir: /exercises
+      - "./bin:/exercises/bin"
+      - "./src:/exercises/src"
+      - "./package.json:/exercises/package.json"
+      - "./tsconfig.json:/exercises/tsconfig.json"
+    working_dir: "/exercises"
     command: ["bun", "run", "start"]
     init: true # to ensure signal handling works (and you can kill the container with ctrl-c)
   tests:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: "."
+      dockerfile: "Dockerfile"
     volumes:
-      - ./src:/exercises/src
-      - ./tests:/exercises/tests
-      - ./package.json:/exercises/package.json
-      - ./tsconfig.json:/exercises/tsconfig.json
-    working_dir: /exercises
+      - "./src:/exercises/src"
+      - "./tests:/exercises/tests"
+      - "./package.json:/exercises/package.json"
+      - "./tsconfig.json:/exercises/tsconfig.json"
+    working_dir: "/exercises"
     entrypoint: ["bun", "run", "test"]
     init: true # to ensure signal handling works (and you can kill the container with ctrl-c)
