@@ -7,10 +7,10 @@ services:
       SW_RUNNING_IN_HOSTED_ENV:
       WATCHER_BASE_PATH: "/exercises"
       ATTENDANCE_ID_FILE: "/attendance_id"
-      WATCHED_EXTS: ".js .jsx .css .html"
-      IGNORE_MATCH: ".git"
+      WATCHED_EXTS: ".js .ts"
+      IGNORE_MATCH: ".git node_modules"
     volumes:
-      - ./exercises:/exercises:ro
-      - ./attendance_id:/attendance_id:ro
+      - "./exercises:/exercises:ro"
+      - "./attendance_id:/attendance_id:ro"
     tty: true
     stdin_open: true

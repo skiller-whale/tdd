@@ -5,6 +5,7 @@ services:
       - "3001:3001"
     volumes:
       - "./bin:/exercises/bin"
+      - "./lib:/exercises/lib"
       - "./src:/exercises/src"
       - "./package.json:/exercises/package.json"
       - "./tsconfig.json:/exercises/tsconfig.json"
@@ -16,6 +17,7 @@ services:
       context: "."
       dockerfile: "Dockerfile"
     volumes:
+      - "./lib:/exercises/lib"
       - "./src:/exercises/src"
       - "./tests:/exercises/tests"
       - "./package.json:/exercises/package.json"
