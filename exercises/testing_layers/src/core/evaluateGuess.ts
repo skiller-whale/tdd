@@ -1,6 +1,6 @@
-export default function evaluateGuess(correctAnswer: string, guess: string): string {
+export default function evaluateGuess(guess: string): string {
   const result = Array(guess.length).fill("-");
-  const correctAnswerChars: (string | null)[] = correctAnswer.split("");
+  const correctAnswerChars: (string | null)[] = ["w", "h", "a", "l", "e"];
   const guessChars: (string | null)[] = guess.split("");
 
   // First pass: check for greens

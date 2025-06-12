@@ -1,44 +1,30 @@
-import { describe, it, expect } from "bun:test";
-import startBackend from "./backend.ts";
-import gameState from "./backend/core/gameState.ts";
-import makeRequest from "../tests/helpers/makeRequest.ts";
-import urlForGameWithAnswer from "../tests/helpers/gameUrlForAnswer.ts";
+import { beforeAll, describe, expect, it } from "bun:test";
+import backend from "./backend.ts";
 
 describe("backend server", () => {
-  it("starts the server and responds to `/`", async () => {
-    const server = startBackend({ port: 0 });
-    const { status, body } = await makeRequest({
-      baseUrl: server.baseUrl,
-      path: "/",
-    });
-    expect(body).toEqual({ status: "ok" });
-    expect(status).toBe(200);
+  beforeAll(() => {
+    backend.start({ port: 0 });
   });
 
   it("exposes game state endpoint", async () => {
-    const server = startBackend({ port: 0 });
-    const answer = "whale";
-    const guesses = ["fishy", "shark", "shell", "trout", "salty", "whale"];
-    const { status, body } = await makeRequest({
-      baseUrl: server.baseUrl,
-      path: `${urlForGameWithAnswer(answer)}/state`,
-      requestBody: { guesses },
-    });
-    expect(body).toEqual(gameState(answer, guesses));
-    expect(status).toBe(200);
+    const { client } = backend;
+    const guesses = ["whale"];
+    const { response, data } = await client.post("/state", { guesses });
+    expect(data).toEqual({ status: "won" });
+    expect(response.status).toBe(200);
   });
 
+  // for exercise 1 (inside-out):
   it.todo("exposes guess evaluations endpoint");
 
+  // for exercise 3 (double loop):
+  // EITHER write one test here and then step down second time:
   it.todo("exposes guess validation endpoint");
 
-  it("returns a 404 for non-existent paths", async () => {
-    const server = startBackend({ port: 0 });
-    const { status, body } = await makeRequest({
-      baseUrl: server.baseUrl,
-      path: "/non-existent",
-    });
-    expect(body).toEqual({ error: "Not Found" });
-    expect(status).toBe(404);
-  });
+  // OR stay at this level to manage all cases:
+  it.todo("exposes guess validation endpoint that invalidates guesses that are too short");
+
+  it.todo("exposes guess validation endpoint that invalidates guesses that are too long");
+
+  it.todo("exposes guess validation endpoint that invalidates guesses that are not in the dictionary");
 });

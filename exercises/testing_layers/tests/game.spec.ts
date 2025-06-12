@@ -1,44 +1,38 @@
-import { describe, expect, it } from "bun:test";
-import setupServers from "./helpers/servers.ts";
-import setupBrowser from "./helpers/browser.ts";
-import urlForGameWithAnswer from "./helpers/gameUrlForAnswer.ts";
+import { beforeAll, describe, expect, it } from "bun:test";
+import { Browser } from "../lib/browser.ts";
+import backend from "../src/backend.ts";
+import frontend from "../src/frontend.ts";
 
 describe("game UI", () => {
-  it("shows success when the correct answer is guessed first time", async () => {
-    const server = setupServers();
-    const browser = await setupBrowser(server.baseUrl);
-    await browser.visit(urlForGameWithAnswer("whale"));
+  let browser: Browser;
+  beforeAll(() => {
+    backend.start({ port: 0 });
+    frontend.start({ port: 0, backend: backend.client });
+    browser = new Browser(frontend.baseUrl);
+  });
 
+  it("shows success when the correct answer is guessed first time", async () => {
+    await browser.visit("/");
     await browser.enterGuess("whale");
-    expect((await browser.getStatusElement()).innerText).toBe("You won!");
+    expect(await browser.getStatus()).toBe("You won!");
   });
 
   it("shows the number of guesses remaining", async () => {
-    const server = setupServers();
-    const browser = await setupBrowser(server.baseUrl);
-    await browser.visit(urlForGameWithAnswer("whale"));
+    await browser.visit("/");
 
     await browser.enterGuess("fishy");
-    expect((await browser.getStatusElement()).innerText).toBe(
-      "You have 5 guesses left."
-    );
+    expect(await browser.getStatus()).toBe("You have 5 guesses left.");
 
     await browser.enterGuess("shark");
-    expect((await browser.getStatusElement()).innerText).toBe(
-      "You have 4 guesses left."
-    );
+    expect(await browser.getStatus()).toBe("You have 4 guesses left.");
 
     await browser.enterGuess("shell");
-    expect((await browser.getStatusElement()).innerText).toBe(
-      "You have 3 guesses left."
-    );
+    expect(await browser.getStatus()).toBe("You have 3 guesses left.");
   });
 
   it("shows failure and the correct answer when the game is lost", async () => {
-    const server = setupServers();
-    const browser = await setupBrowser(server.baseUrl);
+    await browser.visit("/");
 
-    await browser.visit(urlForGameWithAnswer("whale"));
     await browser.enterGuess("fishy");
     await browser.enterGuess("shark");
     await browser.enterGuess("shell");
@@ -46,15 +40,13 @@ describe("game UI", () => {
     await browser.enterGuess("salty");
     await browser.enterGuess("ocean");
 
-    expect((await browser.getStatusElement()).innerText).toBe("You lost!");
-    expect((await browser.getCorrectAnswerElement()).innerText).toBe("WHALE");
+    expect(await browser.getStatus()).toBe("You lost!");
+    expect(await browser.getCorrectAnswer()).toBe("WHALE");
   });
 
   it("shows the previous guesses in the game", async () => {
-    const server = setupServers();
-    const browser = await setupBrowser(server.baseUrl);
+    await browser.visit("/");
 
-    await browser.visit(urlForGameWithAnswer("whale"));
     await browser.enterGuess("fishy");
     await browser.enterGuess("shark");
     await browser.enterGuess("shell");
@@ -62,35 +54,26 @@ describe("game UI", () => {
     await browser.enterGuess("salty");
     await browser.enterGuess("ocean");
 
-    const guessElements = await browser.getGuessElements();
-    expect(guessElements[0].innerText).toBe("FISHY");
-    expect(guessElements[1].innerText).toBe("SHARK");
-    expect(guessElements[2].innerText).toBe("SHELL");
-    expect(guessElements[3].innerText).toBe("TROUT");
-    expect(guessElements[4].innerText).toBe("SALTY");
-    expect(guessElements[5].innerText).toBe("OCEAN");
+    expect(await browser.getGuess(0)).toBe("FISHY");
+    expect(await browser.getGuess(1)).toBe("SHARK");
+    expect(await browser.getGuess(2)).toBe("SHELL");
+    expect(await browser.getGuess(3)).toBe("TROUT");
+    expect(await browser.getGuess(4)).toBe("SALTY");
+    expect(await browser.getGuess(5)).toBe("OCEAN");
   });
 
-  it.todo("shows evaluations for each guess", async () => {
-    // you can copy and paste the setup code from the other tests above
+  it.todo("shows colour-coded feedback for each guess", async () => {
+    await browser.visit("/");
 
-    // await browser.getGuessElements()
-    //   - returns an array of guess elements (one for each guess)
-
-    // guessElements[0].innerText
-    //   - the text of the first guess element (i.e. should be the word guessed)
-
-    // guessElements[0].innerSquares
-    //   - an array of square elements for the first guess (one for each letter)
-
-    // guessElements[0].innerSquares[0].classList
-    //   - the classList of the first square element (you can check if classList.includes("green") or similar)
+    // get the classList of nth character of the mth guess with:
+    // await browser.getGuessCharClassList(m, n);
+    // check this classList includes "green", "yellow", or "gray"
   });
 
-  it.todo("shows an error message when the guess is invalid", async () => {
-    // you can copy and paste the setup code from the other tests above
+  it.todo("rejects invalid guesses with an error message", async () => {
+    await browser.visit("/");
 
-    // await browser.getErrorElement()
-    //   - returns the element with an "error" class (if it exists)
+    // get the error message on the page with:
+    // await browser.getError()
   });
 });

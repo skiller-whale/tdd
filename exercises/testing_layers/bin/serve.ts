@@ -1,10 +1,8 @@
-#!/usr/bin/env bun
+import backend from "../src/backend.ts";
+import frontend from "../src/frontend.ts";
 
-import startBackend from "../src/backend.ts";
-import startFrontend from "../src/frontend.ts";
-
-const backend = startBackend({ port: 3000 });
+backend.start({ port: 3000 });
 console.log(`Backend server started on ${backend.baseUrl}`);
 
-const frontend = startFrontend({ port: 3001, backendUrl: backend.baseUrl });
+frontend.start({ port: 3001, backend: backend.client });
 console.log(`Frontend server started on ${frontend.baseUrl}`);
