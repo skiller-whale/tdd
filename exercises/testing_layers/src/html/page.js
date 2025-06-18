@@ -1,4 +1,4 @@
-export default function htmlPage(body: string[]) {
+export default function htmlPage(body) {
   return [
     "<!doctype html>",
     '<html lang="en">',
@@ -71,19 +71,19 @@ input {
 .guess {
   display: flex;
   gap: 0.5rem;
-}
 
-.char {
-  display: flex;
-  font-size: 1.5rem;
-  width: 3rem;
-  height: 3rem;
-  line-height: 1;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid #ccc;
-  text-transform: uppercase;
-  font-weight: bold;
+  span {
+    display: flex;
+    font-size: 1.5rem;
+    width: 3rem;
+    height: 3rem;
+    line-height: 1;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #ccc;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
 }
 
 .gray, .yellow, .green {

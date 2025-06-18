@@ -1,38 +1,38 @@
 import { chromium } from "playwright";
 
-export class Browser {
-  #baseUrl: URL;
+export default class Browser {
+  #baseUrl;
   #options = { timeout: 500 };
   #page = chromium
     .launch({ headless: process.env.SHOW_BROWSER !== "true" })
     .then((browser) => browser.newContext())
     .then((context) => context.newPage());
 
-  #getFullUrl(url: string) {
+  #getFullUrl(url) {
     return new URL(url, this.#baseUrl).toString();
   }
 
-  constructor(baseUrl: string | URL) {
+  constructor(baseUrl) {
     this.#baseUrl = new URL(baseUrl);
   }
 
-  setTimeout(timeout: number): void {
+  setTimeout(timeout) {
     this.#options.timeout = timeout;
   }
 
-  async visit(url: string): Promise<void> {
+  async visit(url) {
     const page = await this.#page;
     await page.goto(this.#getFullUrl(url), this.#options);
   }
 
-  async enterGuess(guess: string): Promise<void> {
+  async enterGuess(guess) {
     const page = await this.#page;
     const input = page.getByLabel("guess");
     await input.fill(guess);
     await input.press("Enter");
   }
 
-  async getStatus(): Promise<string> {
+  async getStatus() {
     const page = await this.#page;
     const statusElement = await page.$(".status");
     if (!statusElement) {
@@ -41,7 +41,7 @@ export class Browser {
     return (await statusElement.innerText()).trim();
   }
 
-  async getError(): Promise<string> {
+  async getError() {
     const page = await this.#page;
     const errorElement = await page.$(".error");
     if (!errorElement) {
@@ -50,7 +50,7 @@ export class Browser {
     return (await errorElement.innerText()).trim();
   }
 
-  async getCorrectAnswer(): Promise<string> {
+  async getCorrectAnswer() {
     const page = await this.#page;
     const correctAnswerElement = await page.$(".correct-answer");
     if (!correctAnswerElement) {
@@ -59,7 +59,7 @@ export class Browser {
     return (await correctAnswerElement.innerText()).trim();
   }
 
-  async getGuess(index: 0 | 1 | 2 | 3 | 4 | 5): Promise<string> {
+  async getGuess(index) {
     const page = await this.#page;
     const guessElement = await page.$(`.guess:nth-child(${index + 1})`);
     if (!guessElement) {
@@ -71,10 +71,7 @@ export class Browser {
     return innerText;
   }
 
-  async getGuessCharClassList(
-    guessIndex: 0 | 1 | 2 | 3 | 4 | 5,
-    charIndex: 0 | 1 | 2 | 3 | 4
-  ): Promise<string> {
+  async getGuessCharClassName(guessIndex, charIndex) {
     const page = await this.#page;
     const guessElement = await page.$(`.guess:nth-child(${guessIndex + 1})`);
     if (!guessElement) {
@@ -88,6 +85,10 @@ export class Browser {
         `Character element ${charIndex} in guess ${guessIndex} not found in page`
       );
     }
-    return (await squareElement.getAttribute("class")) ?? "";
+    const classList = (await squareElement.getAttribute("class")) ?? "";
+    const classes = classList
+      .split(" ")
+      .filter((className) => className !== "char");
+    return classes.join(" ");
   }
 }
