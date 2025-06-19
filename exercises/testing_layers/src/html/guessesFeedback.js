@@ -10,7 +10,7 @@ export default function guessesFeedback(guesses) {
 
   return [
     '<div class="guesses">',
-    ...guessesForDisplay.flatMap(guessFeedback),
+    ...guessesForDisplay.flatMap((guess, guessIndex) => guessFeedback(guess)),
     "</div>",
   ];
 }
@@ -18,7 +18,7 @@ export default function guessesFeedback(guesses) {
 function guessFeedback(guess) {
   return [
     '<div class="guess">',
-    ...guess.split("").map(guessCharFeedback),
+    ...guess.split("").map((char, charIndex) => guessCharFeedback(char)),
     "</div>",
   ];
 }

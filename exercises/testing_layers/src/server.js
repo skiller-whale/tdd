@@ -8,18 +8,23 @@ import guessForm from "./html/guessForm.js";
 import guessesFeedback from "./html/guessesFeedback.js";
 import page from "./html/page.js";
 import statusMessage from "./html/statusMessage.js";
+import { gameStateFromURL, gameStateToURL } from "./gameState.js";
 
-const frontend = new Server();
+const server = new Server();
 
-frontend.get("/", async ({ request }) => {
-  // get base game state from the URL
-  const url = new URL(request.url);
-  const guesses = url.searchParams.get("guesses")?.split(",") ?? [];
+// return the current state of the game
+server.get("/", async ({ request }) => {
+  // get base game state from the URL query parameters
+  // this will include the previous guesses and any error message
+  const { guesses, error } = gameStateFromURL(request.url);
 
   // generate derived game state
-  const status = gameStatus(guesses);
+  const status = gameStatus(guesses); // "playing", "won", or "lost"
+
+  // TODO: get colour evaluations for each guess, and pass them on to the guessesFeedback function
 
   // return game HTML
+  // you can use ...(error ? errorMessage(error) : []) to conditionally include an error message
   return html(
     page([
       ...guessesFeedback(guesses),
@@ -29,20 +34,24 @@ frontend.get("/", async ({ request }) => {
   );
 });
 
-frontend.post("/", async ({ request }) => {
-  // get game instance state from the URL
-  const url = new URL(request.url);
-  const guesses = url.searchParams.get("guesses")?.split(",") ?? [];
+// handle a new guess submitted via the form
+server.post("/", async ({ request }) => {
+  // get base game state from the URL query parameters
+  const { guesses } = gameStateFromURL(request.url);
 
-  // get latest guess from the form data
+  // get new guess from the form data
   const formData = await request.formData();
   const latestGuess = formData.get("latestGuess");
 
-  // TODO: validate the latest guess and redirect with error in search params if invalid
+  // TODO: validate the guess
+  const error = undefined;
+  if (error) {
+    // if there's an error, redirect with the error message added to query parameters
+  }
 
-  // redirect to the game page with the latest guess added to the guesses in search params
-  const params = new URLSearchParams({ guesses: [...guesses, latestGuess] });
-  return redirect(`/?${params.toString()}`);
+  // otherwise, redirect with the latest guess added to query parameters (and no error)
+  const nextState = { guesses: [...guesses, latestGuess] };
+  return redirect(gameStateToURL(nextState));
 });
 
-export default frontend;
+export default server;

@@ -78,6 +78,12 @@ describe("game UI", () => {
     await browser.visit("/");
 
     // act
+    // a useful guess to try here would be "water", which should be reported as:
+    //   - green for the first character (W)
+    //   - yellow for the second character (A)
+    //   - gray for the third character (T)
+    //   - yellow for the fourth character (E)
+    //   - gray for the fifth character (R)
 
     // assert
     // NOTE: you can use `await browser.getGuessCharClass(n, m)` to get the class

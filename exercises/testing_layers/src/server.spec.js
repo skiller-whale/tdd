@@ -35,10 +35,28 @@ describe("server", () => {
   });
 
   it.todo(
-    "`POST /` with invalid guess in formData redirects with guess _not_ added to the URL"
+    "`POST /` with invalid guess in formData redirects with guess _not_ added to the URL",
+    async () => {
+      // arrange
+      server.start({ port: 0 });
+      const client = server.client;
+
+      // act
+
+      // assert
+    }
   );
 
   it.todo(
-    "`POST /` with invalid guess in formData redirects with error message added to the URL"
+    "`POST /` with invalid guess in formData redirects with error message added to the URL",
+    async () => {
+      // arrange
+      server.start({ port: 0 });
+      const client = server.client;
+
+      // act
+
+      // assert
+    }
   );
 });

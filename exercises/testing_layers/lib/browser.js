@@ -71,24 +71,20 @@ export default class Browser {
     return innerText;
   }
 
-  async getGuessCharClassName(guessIndex, charIndex) {
+  async getGuessCharClass(guessIndex, charIndex) {
     const page = await this.#page;
     const guessElement = await page.$(`.guess:nth-child(${guessIndex + 1})`);
     if (!guessElement) {
       throw new Error(`Guess element ${guessIndex} not found in page`);
     }
     const squareElement = await guessElement.$(
-      `.char:nth-child(${charIndex + 1})`
+      `span:nth-child(${charIndex + 1})`
     );
     if (!squareElement) {
       throw new Error(
         `Character element ${charIndex} in guess ${guessIndex} not found in page`
       );
     }
-    const classList = (await squareElement.getAttribute("class")) ?? "";
-    const classes = classList
-      .split(" ")
-      .filter((className) => className !== "char");
-    return classes.join(" ");
+    return (await squareElement.getAttribute("class")) ?? "";
   }
 }
