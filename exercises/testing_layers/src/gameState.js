@@ -11,7 +11,8 @@ export function gameStateToURL({ guesses, error }) {
   return `/?${params.toString()}`;
 }
 
-export function gameStateFromURL(url) {
+export function gameStateFromURL(urlString) {
+  const url = new URL(urlString);
   const params = new URLSearchParams(url.search);
   const guesses = params.get("guesses")?.split(",") ?? [];
   const error = params.get("error") ?? undefined;
