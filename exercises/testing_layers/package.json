@@ -4,10 +4,15 @@
   "type": "module",
   "private": true,
   "scripts": {
+    "test:unit:core": "bun test src/core",
+    "test:server": "bun test src/server",
+    "test:system": "bun test tests",
+    "test:all:watch": "bun install && run-run-run --watch-file-extensions=js 'bun run test:unit:core' 'bun run test:server' 'bun run test:system'",
     "test": "bun install && bun test --watch",
     "start": "bun install && bun run --watch bin/serve.js"
   },
   "devDependencies": {
+    "@nowprototypeit/run-run-run": "github:nowprototypeit/run-run-run#f429f4d",
     "playwright": "^1.52.0"
   }
 }
