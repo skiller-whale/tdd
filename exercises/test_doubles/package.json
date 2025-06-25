@@ -1,0 +1,16 @@
+{
+  "name": "experiment",
+  "module": "bin/serve.js",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "bun install && bun test --watch",
+    "start": "bun install && bun run --watch bin/serve.js"
+  },
+  "devDependencies": {
+    "playwright": "^1.52.0"
+  },
+  "dependencies": {
+    "urlpattern-polyfill": "^10.1.0"
+  }
+}

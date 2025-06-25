@@ -2,19 +2,19 @@ import { describe, expect, it } from "bun:test";
 import validateGuess from "./validateGuess.js";
 
 describe("validateGuess", () => {
-  it.todo("returns undefined for a valid guess", () => {
+  it.todo("allows valid guesses", () => {
     // TODO
   });
 
-  it.todo("returns an error message for guesses that are too short", () => {
+  it.todo("invalidates guesses that are too short", () => {
     // TODO
   });
 
-  it.todo("returns an error message for guesses that are too long", () => {
+  it.todo("invalidates guesses that are too long", () => {
     // TODO
   });
 
-  it.todo("returns an error message for guesses that are not in the dictionary", () => {
+  it.todo("invlidates guesses that are not in the dictionary", () => {
     // TODO
   });
 });

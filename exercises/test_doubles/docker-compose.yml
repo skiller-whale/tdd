@@ -1,0 +1,27 @@
+services:
+  dev-server:
+    image: "oven/bun:1.2"
+    ports:
+      - "3001:3001"
+    volumes:
+      - "./bin:/exercises/bin"
+      - "./lib:/exercises/lib"
+      - "./src:/exercises/src"
+      - "./package.json:/exercises/package.json"
+      - "./tsconfig.json:/exercises/tsconfig.json"
+    working_dir: "/exercises"
+    command: ["bun", "run", "start"]
+    init: true # to ensure signal handling works (and you can kill the container with ctrl-c)
+  tests:
+    build:
+      context: "."
+      dockerfile: "Dockerfile"
+    volumes:
+      - "./lib:/exercises/lib"
+      - "./src:/exercises/src"
+      - "./tests:/exercises/tests"
+      - "./package.json:/exercises/package.json"
+      - "./tsconfig.json:/exercises/tsconfig.json"
+    working_dir: "/exercises"
+    entrypoint: ["bun", "run", "test"]
+    init: true # to ensure signal handling works (and you can kill the container with ctrl-c)
