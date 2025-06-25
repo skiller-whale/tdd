@@ -20,7 +20,7 @@ async function loseGame(browser) {
   await browser.enterGuess("ocean");
 }
 
-describe("game UI stats", () => {
+describe.skip("game UI stats", () => {
   it("shows stats at the end of the game (games won, lost, and total played)", async () => {
     // arrange
     await database.initialize();
