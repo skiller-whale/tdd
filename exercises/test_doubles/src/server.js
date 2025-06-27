@@ -61,10 +61,10 @@ server.post("/games/:id", async ({ request, params, cookies, database }) => {
   // get latest guess from the form data and update the game state
   const formData = await request.formData();
   const latestGuess = formData.get("latestGuess");
-  const nextGameState = makeGuess(game, latestGuess);
-  database.saveGame(nextGameState);
+  const gameAfterGuess = makeGuess(game, latestGuess);
+  database.saveGame(gameAfterGuess);
 
-  if (nextGameState.status !== "playing") {
+  if (gameAfterGuess.status !== "playing") {
     // TODO: update the user's game history
   }
 
