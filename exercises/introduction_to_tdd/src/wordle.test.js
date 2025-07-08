@@ -10,10 +10,10 @@ test("description of the test", () => {
 });
 */
 
-test.todo('`evaluateGuess` result includes `"-"`s for letters not in the answer');
+test.todo('`evaluateGuess` returns `"-----"` for a completely incorrect guess');
 
-test.todo('`evaluateGuess` returns all `"g"`s for the correct answer');
+test.todo('`evaluateGuess` returns `"ggggg"` for a completely correct guess');
 
 test.todo('`evaluateGuess` result includes `"g"` for one correct letter in the correct position');
 
-test.todo('`evaluateGuess` result includes `"o"` for one correct letter in the wrong position');
+test.todo('`evaluateGuess` result includes `"y"` for one correct letter in the wrong position');
