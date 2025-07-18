@@ -23,7 +23,7 @@ export default class Server {
       const url = new URL(request.url);
       const method = request.method;
       for (const pattern of Object.keys(this.#routes)) {
-        const urlPattern = new URLPattern(pattern, this.#server.url.href);
+        const urlPattern = new URLPattern(pattern, url.origin);
         const urlPatternExecResult = urlPattern.exec(url);
         if (urlPatternExecResult) {
           const route = this.#routes[pattern][method];
