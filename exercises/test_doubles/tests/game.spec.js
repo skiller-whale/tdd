@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import Browser from "../lib/browser.js";
 import * as database from "../src/database.js";
-import server from "../src/server.js";
+import server from "../src/server.jsx";
 
 describe("game UI", () => {
   it("shows success when the correct answer is guessed first time", async () => {

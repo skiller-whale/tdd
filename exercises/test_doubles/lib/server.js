@@ -2,7 +2,7 @@ import { CookieMap } from "bun";
 import Client from "./client.js";
 import { text } from "./response.js";
 
-if (!globalThis.URLPattern) { 
+if (!globalThis.URLPattern) {
   await import("urlpattern-polyfill");
 }
 
@@ -27,11 +27,23 @@ export default class Server {
         const urlPatternExecResult = urlPattern.exec(url);
         if (urlPatternExecResult) {
           const route = this.#routes[pattern][method];
-          const params = urlPatternExecResult.pathname.groups;
-          const cookies = new CookieMap(request.headers.get("Cookie") ?? "");
-          return route
-            ? route({ ...this.#options, request, params, cookies })
-            : text("Method not Supported", { status: 405 });
+          if (route) {
+            const params = urlPatternExecResult.pathname.groups;
+            const cookies = new CookieMap(request.headers.get("Cookie") ?? "");
+            if (!cookies.get("sessionId")) {
+              cookies.set("sessionId", crypto.randomUUID());
+            }
+            const sessionID = cookies.get("sessionId");
+            const response = await route({
+              ...this.#options,
+              request,
+              params,
+              sessionID,
+            });
+            response.headers.set("Set-Cookie", cookies.toSetCookieHeaders());
+            return response;
+          }
+          return text("Method not Supported", { status: 405 });
         }
       }
       return text("Not Found", { status: 404 });

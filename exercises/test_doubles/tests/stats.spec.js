@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import Browser from "../lib/browser.js";
 import * as database from "../src/database.mock.js";
-import server from "../src/server.js";
+import server from "../src/server.jsx";
 
 async function winGame(browser) {
   await browser.visit("/");

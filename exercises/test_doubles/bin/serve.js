@@ -1,4 +1,4 @@
-import server from "../src/server.js";
+import server from "../src/server.jsx";
 import * as database from "../src/database.js";
 
 await database.initialize();

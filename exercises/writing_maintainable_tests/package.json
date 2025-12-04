@@ -1,10 +1,11 @@
 {
   "name": "writing_maintainable_tests",
   "version": "1.0.0",
-  "main": "exercise_1/router.js",
+  "main": "exercise_2/router.js",
   "scripts": {
-    "test": "bun test --watch"
+    "test": "bun install && run-run-run --watch-file-extensions=cs 'bun test exercise_2'"
   },
-  "author": "",
-  "license": "ISC"
+  "devDependencies": {
+    "@nowprototypeit/run-run-run": "github:nowprototypeit/run-run-run#f429f4d"
+  }
 }

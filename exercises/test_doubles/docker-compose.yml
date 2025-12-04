@@ -8,7 +8,6 @@ services:
       - "./lib:/exercises/lib"
       - "./src:/exercises/src"
       - "./package.json:/exercises/package.json"
-      - "./tsconfig.json:/exercises/tsconfig.json"
     working_dir: "/exercises"
     command: ["bun", "run", "start"]
     init: true # to ensure signal handling works (and you can kill the container with ctrl-c)
@@ -21,7 +20,6 @@ services:
       - "./src:/exercises/src"
       - "./tests:/exercises/tests"
       - "./package.json:/exercises/package.json"
-      - "./tsconfig.json:/exercises/tsconfig.json"
     working_dir: "/exercises"
     entrypoint: ["bun", "run", "test:all:watch"]
     init: true # to ensure signal handling works (and you can kill the container with ctrl-c)
