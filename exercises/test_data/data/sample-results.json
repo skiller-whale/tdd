@@ -1,0 +1,134 @@
+[
+  {
+    "playerName": "Alice",
+    "answer": "whale",
+    "guesses": ["crane", "slate", "whale"],
+    "date": "2026-02-01"
+  },
+  {
+    "playerName": "Alice",
+    "answer": "flint",
+    "guesses": ["crane", "stilt", "flint"],
+    "date": "2026-02-02"
+  },
+  {
+    "playerName": "Alice",
+    "answer": "grape",
+    "guesses": ["crane", "grape"],
+    "date": "2026-02-03"
+  },
+  {
+    "playerName": "Alice",
+    "answer": "quirk",
+    "guesses": ["crane", "stilt", "plumb", "vigor", "quirk"],
+    "date": "2026-02-04"
+  },
+  {
+    "playerName": "Alice",
+    "answer": "brine",
+    "guesses": ["crane", "brine"],
+    "date": "2026-02-05"
+  },
+  {
+    "playerName": "Alice",
+    "answer": "plumb",
+    "guesses": ["crane", "stilt", "plumb"],
+    "date": "2026-02-06"
+  },
+  {
+    "playerName": "Alice",
+    "answer": "vivid",
+    "guesses": ["crane", "stilt", "plumb", "vigor", "kayak", "vivid"],
+    "date": "2026-02-07"
+  },
+  {
+    "playerName": "Bob",
+    "answer": "whale",
+    "guesses": ["adieu", "story", "whale"],
+    "date": "2026-02-01"
+  },
+  {
+    "playerName": "Bob",
+    "answer": "flint",
+    "guesses": ["adieu", "story", "clamp", "flint"],
+    "date": "2026-02-02"
+  },
+  {
+    "playerName": "Bob",
+    "answer": "grape",
+    "guesses": ["adieu", "story", "clamp", "brine", "grape"],
+    "date": "2026-02-03"
+  },
+  {
+    "playerName": "Bob",
+    "answer": "quirk",
+    "guesses": ["adieu", "story", "clamp", "brine", "monks", "plumb"],
+    "date": "2026-02-04"
+  },
+  {
+    "playerName": "Bob",
+    "answer": "brine",
+    "guesses": ["adieu", "brine"],
+    "date": "2026-02-05"
+  },
+  {
+    "playerName": "Bob",
+    "answer": "plumb",
+    "guesses": ["adieu", "story", "clamp", "plumb"],
+    "date": "2026-02-06"
+  },
+  {
+    "playerName": "Charlie",
+    "answer": "whale",
+    "guesses": ["whale"],
+    "date": "2026-02-01"
+  },
+  {
+    "playerName": "Charlie",
+    "answer": "flint",
+    "guesses": ["crane", "stilt", "plumb", "vigor", "kayak", "monks"],
+    "date": "2026-02-02"
+  },
+  {
+    "playerName": "Charlie",
+    "answer": "grape",
+    "guesses": ["crane", "grape"],
+    "date": "2026-02-03"
+  },
+  {
+    "playerName": "Charlie",
+    "answer": "quirk",
+    "guesses": ["crane", "stilt", "plumb", "vigor", "kayak", "monks"],
+    "date": "2026-02-04"
+  },
+  {
+    "playerName": "Charlie",
+    "answer": "brine",
+    "guesses": ["crane", "brine"],
+    "date": "2026-02-05"
+  },
+  {
+    "playerName": "Dana",
+    "answer": "whale",
+    "guesses": ["crane", "stilt", "plumb", "whale"],
+    "date": "2026-02-01"
+  },
+  {
+    "playerName": "Dana",
+    "answer": "flint",
+    "guesses": ["crane", "flint"],
+    "date": "2026-02-02"
+  },
+  {
+    "playerName": "Dana",
+    "answer": "grape",
+    "guesses": ["crane", "grape"],
+    "date": "2026-02-03"
+  },
+  {
+    "playerName": "Dana",
+    "answer": "quirk",
+    "guesses": ["crane", "stilt", "quirk"],
+    "date": "2026-02-04"
+  }
+]
