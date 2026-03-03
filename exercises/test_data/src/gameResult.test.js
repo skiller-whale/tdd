@@ -1,0 +1,151 @@
+import { describe, expect, it } from "bun:test";
+import { validateGameResult, summarizeGame } from "./gameResult.js";
+
+describe("validateGameResult", () => {
+  it("accepts a valid game result", () => {
+    const result = {
+      playerName: "Alice",
+      answer: "whale",
+      guesses: ["crane", "slate", "whale"],
+      date: "2026-02-01",
+    };
+    expect(validateGameResult(result)).toEqual({ valid: true });
+  });
+
+  it("rejects a result that isn't an object", () => {
+    const invalidResults = [null, "not an object", 42, [], () => {}];
+    for (const invalidResult of invalidResults) {
+      expect(validateGameResult(invalidResult)).toEqual({
+        valid: false,
+        reason: "Result must be an object",
+      });
+    }
+  });
+
+  it("rejects a result with a missing playerName", () => {
+    const result = {
+      answer: "whale",
+      guesses: ["crane", "slate", "whale"],
+      date: "2026-02-01",
+    };
+    expect(validateGameResult(result)).toEqual({
+      valid: false,
+      reason: "playerName must be a non-empty string",
+    });
+  });
+
+  it("rejects a result with a missing answer", () => {
+    const result = {
+      playerName: "Alice",
+      guesses: ["crane", "slate", "whale"],
+      date: "2026-02-01",
+    };
+    expect(validateGameResult(result)).toEqual({
+      valid: false,
+      reason: "answer must be a 5-letter lowercase word",
+    });
+  });
+
+  it("rejects a result with an answer of the wrong format", () => {
+    const invalidAnswers = ["whales", "WHALE", "wh4le", "whal", ""];
+    for (const invalidAnswer of invalidAnswers) {
+      const result = {
+        playerName: "Alice",
+        answer: invalidAnswer,
+        guesses: ["crane", "slate", "whale"],
+        date: "2026-02-01",
+      };
+      expect(validateGameResult(result)).toEqual({
+        valid: false,
+        reason: "answer must be a 5-letter lowercase word",
+      });
+    }
+  });
+
+  it("rejects a result with missing guesses", () => {
+    const result = {
+      playerName: "Alice",
+      answer: "whale",
+      date: "2026-02-01",
+    };
+    expect(validateGameResult(result)).toEqual({
+      valid: false,
+      reason: "guesses must be a non-empty array",
+    });
+  });
+
+  it("rejects a result with non-array guesses", () => {
+    const result = {
+      playerName: "Alice",
+      answer: "whale",
+      guesses: "not an array",
+      date: "2026-02-01",
+    };
+    expect(validateGameResult(result)).toEqual({
+      valid: false,
+      reason: "guesses must be a non-empty array",
+    });
+  });
+
+  it("rejects a result with an invalid date format", () => {
+    const result = {
+      playerName: "Alice",
+      answer: "whale",
+      guesses: ["crane", "slate", "whale"],
+      date: "02-01-2026",
+    };
+    expect(validateGameResult(result)).toEqual({
+      valid: false,
+      reason: "date must be a YYYY-MM-DD string",
+    });
+  });
+
+  it("rejects a result that isn't in a completed state", () => {
+    const result = {
+      playerName: "Alice",
+      answer: "whale",
+      guesses: ["crane", "slate"], // not complete (won or lost)
+      date: "2026-02-01",
+    };
+    expect(validateGameResult(result)).toEqual({
+      valid: false,
+      reason: "Game must be in a completed state (won or lost)",
+    });
+  });
+});
+
+describe("summarizeGame", () => {
+  it('formats a winning game as "Name: ANSWER n/6 ✓"', () => {
+    for (const playerName of ["Alice", "Bob", "Charlie"]) {
+      for (const answers of [
+        ["whale"],
+        ["crane", "slate", "flint"],
+        ["stilt", "plumb", "vigor", "kayak", "monks", "crane"],
+      ]) {
+        const result = {
+          playerName,
+          answer: answers[answers.length - 1],
+          guesses: answers,
+          date: "2026-02-01",
+        };
+        expect(summarizeGame(result)).toBe(
+          `${playerName}: ${answers[answers.length - 1].toUpperCase()} ${
+            answers.length
+          }/6 ✓`
+        );
+      }
+    }
+  });
+
+  it('formats a losing game as "Name: ANSWER X/6 ✗"', () => {
+    for (const playerName of ["Alice", "Bob", "Charlie"]) {
+      const result = {
+        playerName,
+        answer: "whale",
+        guesses: ["crane", "slate", "flame", "blame", "frame", "grape"],
+        date: "2026-02-01",
+      };
+      expect(summarizeGame(result)).toBe(`${playerName}: WHALE X/6 ✗`);
+    }
+  });
+});

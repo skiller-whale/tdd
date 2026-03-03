@@ -1,0 +1,21 @@
+services:
+  tests:
+    image: oven/bun:1.2-alpine
+    volumes:
+      - ./src:/exercises/src
+      - ./bin:/exercises/bin
+      - ./data:/exercises/data
+      - ./package.json:/exercises/package.json
+    working_dir: /exercises
+    command: ["bun", "run", "test"]
+    init: true # to ensure signal handling works (and you can kill the container with ctrl-c)
+  cli:
+    image: oven/bun:1.2-alpine
+    volumes:
+      - ./src:/exercises/src
+      - ./bin:/exercises/bin
+      - ./data:/exercises/data
+      - ./package.json:/exercises/package.json
+    working_dir: /exercises
+    command: ["sh"]
+    init: true # to ensure signal handling works (and you can kill the container with ctrl-c)
