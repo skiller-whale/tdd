@@ -115,30 +115,24 @@ describe("validateGameResult", () => {
 });
 
 describe("summarizeGame", () => {
-  it('formats a winning game as "Name: ANSWER n/6 ✓"', () => {
-    for (const playerName of ["Alice", "Bob", "Charlie"]) {
-      for (const answers of [
-        ["whale"],
-        ["crane", "slate", "flint"],
-        ["stilt", "plumb", "vigor", "kayak", "monks", "crane"],
-      ]) {
-        const result = {
-          playerName,
-          answer: answers[answers.length - 1],
-          guesses: answers,
-          date: "2026-02-01",
-        };
-        expect(summarizeGame(result)).toBe(
-          `${playerName}: ${answers[answers.length - 1].toUpperCase()} ${
-            answers.length
-          }/6 ✓`
-        );
-      }
+  it.each([
+    { playerName: "Alice", guesses: ["whale"] },
+    { playerName: "Bob", guesses: ["crane", "slate", "flint"] },
+    { playerName: "Charlie", guesses: ["stilt", "plumb", "vigor", "kayak", "monks", "crane"] },
+  ])(
+    'formats a winning game as "Name: ANSWER n/6 ✓"',
+    ({ playerName, guesses }) => {
+      const answer = guesses[guesses.length - 1];
+      const result = { playerName, answer, guesses, date: "2026-02-01" };
+      expect(summarizeGame(result)).toBe(
+        `${playerName}: ${answer.toUpperCase()} ${guesses.length}/6 ✓`
+      );
     }
-  });
+  );
 
-  it('formats a losing game as "Name: ANSWER X/6 ✗"', () => {
-    for (const playerName of ["Alice", "Bob", "Charlie"]) {
+  it.each(["Alice", "Bob", "Charlie"])(
+    'formats a losing game as "%s: WHALE X/6 ✗"',
+    (playerName) => {
       const result = {
         playerName,
         answer: "whale",
@@ -147,5 +141,5 @@ describe("summarizeGame", () => {
       };
       expect(summarizeGame(result)).toBe(`${playerName}: WHALE X/6 ✗`);
     }
-  });
+  );
 });
