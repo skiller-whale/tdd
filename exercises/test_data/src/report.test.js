@@ -21,8 +21,6 @@ describe("generatePlayerReport", () => {
 
     const report = generatePlayerReport(playerStats);
     expect(report).toContain("=== TestPlayer ===");
-    expect(report).toContain("ID: 123");
-    expect(report).toContain("Email: test@example.com");
   });
 
   it("includes the player's ID and email", () => {
