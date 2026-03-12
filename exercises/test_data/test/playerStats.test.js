@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { calculatePlayerStats } from "./playerStats.js";
+import { calculatePlayerStats } from "../src/playerStats.js";
 
 describe("totals", () => {
   it("returns 0s for an empty array", () => {

@@ -2,9 +2,9 @@ services:
   tests:
     image: oven/bun:1.2-alpine
     volumes:
-      - ./src:/exercises/src
-      - ./bin:/exercises/bin
       - ./data:/exercises/data
+      - ./src:/exercises/src
+      - ./test:/exercises/test
       - ./package.json:/exercises/package.json
     working_dir: /exercises
     command: ["bun", "run", "test"]
@@ -12,9 +12,10 @@ services:
   cli:
     image: oven/bun:1.2-alpine
     volumes:
-      - ./src:/exercises/src
       - ./bin:/exercises/bin
       - ./data:/exercises/data
+      - ./src:/exercises/src
+      - ./test:/exercises/test
       - ./package.json:/exercises/package.json
     working_dir: /exercises
     command: ["sh"]
