@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { generatePlayerReport } from "./report.js";
+import { generatePlayerReport } from "../src/report.js";
 
 describe("generatePlayerReport", () => {
   it("includes the player's display name as a header", () => {
@@ -21,8 +21,6 @@ describe("generatePlayerReport", () => {
 
     const report = generatePlayerReport(playerStats);
     expect(report).toContain("=== TestPlayer ===");
-    expect(report).toContain("ID: 123");
-    expect(report).toContain("Email: test@example.com");
   });
 
   it("includes the player's ID and email", () => {
