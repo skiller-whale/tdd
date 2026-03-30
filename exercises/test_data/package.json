@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "test": "bun test --watch src",
+    "test": "bun test --watch test",
     "start": "bun run bin/wordle-stats.js"
   }
 }
