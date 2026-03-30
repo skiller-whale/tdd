@@ -3,6 +3,7 @@ services:
     image: oven/bun:1.1-alpine
     volumes:
       - ./:/inside_out_tdd
+      - js_inside_out_node_modules:/inside_out_tdd/node_modules
     working_dir: /inside_out_tdd
     tty: true
     command:
@@ -16,3 +17,6 @@ services:
         echo "Or for watch mode:"
         echo "  bun test --watch"
         exec /bin/sh -l
+
+volumes:
+  js_inside_out_node_modules:
