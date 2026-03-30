@@ -1,0 +1,18 @@
+services:
+  exercises:
+    image: oven/bun:1.1-alpine
+    volumes:
+      - ./:/inside_out_tdd
+    working_dir: /inside_out_tdd
+    tty: true
+    command:
+      - /bin/sh
+      - -c
+      - |
+        echo 'export PS1="🐳 \033[1;32m\u@\033[1;34m\w\033[0m \$ "' >> /root/.profile
+        echo 'trap "echo ‼️ You just quit the exercises terminal.; echo To get it back run: docker compose run exercises" EXIT' >> /root/.profile
+        echo "To run the tests:"
+        echo "  bun test"
+        echo "Or for watch mode:"
+        echo "  bun test --watch"
+        exec /bin/sh -l

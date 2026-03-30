@@ -1,0 +1,11 @@
+# Bun / Node
+node_modules/
+
+# Test and build artifacts
+coverage/
+dist/
+
+# Local/editor files
+.DS_Store
+.vscode/
+.idea/
