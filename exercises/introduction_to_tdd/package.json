@@ -1,10 +1,4 @@
 {
   "name": "introduction_to_tdd",
-  "version": "1.0.0",
-  "main": "src/wordle.js",
-  "scripts": {
-    "test": "bun test --watch"
-  },
-  "author": "",
-  "license": "ISC"
+  "type": "module"
 }
