@@ -1,4 +1,4 @@
-# Inside-Out TDD: Exercises
+# Writing Tests that Fail Well: Exercises
 
 ## Run tests once
 
@@ -10,10 +10,4 @@ bun test
 
 ```bash
 bun test --watch
-```
-
-## Run wordle-cheat
-
-```bash
-./wordle-cheat _H___ FTH RYIASKC
 ```

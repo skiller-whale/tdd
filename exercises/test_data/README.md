@@ -1,4 +1,4 @@
-# Inside-Out TDD: Exercises
+# Test Data: Exercises
 
 ## Run tests once
 
@@ -12,8 +12,8 @@ bun test
 bun test --watch
 ```
 
-## Run wordle-cheat
+## Run wordle-stats
 
 ```bash
-./wordle-cheat _H___ FTH RYIASKC
+./wordle-stats
 ```
