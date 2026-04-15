@@ -1,3 +1,7 @@
+x-exercise: &exercise
+  image: oven/bun:1.2-alpine
+  entrypoint: /bin/sh
+
 services:
   sync:
     image: "ghcr.io/skiller-whale/learnersync:0.2.1"
@@ -14,3 +18,21 @@ services:
       - "./attendance_id:/attendance_id:ro"
     tty: true
     stdin_open: true
+
+  introduction_to_tdd:
+    <<: *exercise
+    volumes:
+      - ./exercises/introduction_to_tdd:/introduction_to_tdd
+      - introduction_to_tdd_node_modules:/introduction_to_tdd/node_modules
+    working_dir: /introduction_to_tdd
+
+  specifying_behaviour:
+    <<: *exercise
+    volumes:
+      - ./exercises/specifying_behaviour:/specifying_behaviour
+      - specifying_behaviour_node_modules:/specifying_behaviour/node_modules
+    working_dir: /specifying_behaviour
+
+volumes:
+  introduction_to_tdd_node_modules:
+  specifying_behaviour_node_modules:
