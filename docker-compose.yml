@@ -33,6 +33,30 @@ services:
       - specifying_behaviour_node_modules:/specifying_behaviour/node_modules
     working_dir: /specifying_behaviour
 
+  failing_well:
+    <<: *exercise
+    volumes:
+      - ./exercises/failing_well:/failing_well
+      - failing_well_node_modules:/failing_well/node_modules
+    working_dir: /failing_well
+
+  inside_out_tdd:
+    <<: *exercise
+    volumes:
+      - ./exercises/inside_out_tdd:/inside_out_tdd
+      - inside_out_tdd_node_modules:/inside_out_tdd/node_modules
+    working_dir: /inside_out_tdd
+
+  test_data:
+    <<: *exercise
+    volumes:
+      - ./exercises/test_data:/test_data
+      - test_data_node_modules:/test_data/node_modules
+    working_dir: /test_data
+
 volumes:
   introduction_to_tdd_node_modules:
   specifying_behaviour_node_modules:
+  failing_well_node_modules:
+  inside_out_tdd_node_modules:
+  test_data_node_modules:

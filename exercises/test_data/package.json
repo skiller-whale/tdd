@@ -1,10 +1,4 @@
 {
   "name": "test_data",
-  "version": "1.0.0",
-  "type": "module",
-  "private": true,
-  "scripts": {
-    "test": "bun test --watch test",
-    "start": "bun run bin/wordle-stats.js"
-  }
+  "type": "module"
 }
