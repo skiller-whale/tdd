@@ -1,0 +1,5 @@
+#!/bin/sh
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+CODE_DIR=$(dirname "$SCRIPT_DIR")
+git -C "$CODE_DIR" restore "exercises/$1"
+git -C "$CODE_DIR/exercises/$1" -c init.defaultBranch=main init -q
