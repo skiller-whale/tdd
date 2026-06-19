@@ -4,7 +4,7 @@ x-exercise: &exercise
 
 services:
   sync:
-    image: "ghcr.io/skiller-whale/learnersync:0.2.1"
+    image: "ghcr.io/skiller-whale/learnersync:0.2.7"
     network_mode: "host"
     environment:
       SERVER_URL: "https://train.skillerwhale.com/"
@@ -54,9 +54,33 @@ services:
       - test_data_node_modules:/test_data/node_modules
     working_dir: /test_data
 
+  sorting:
+    <<: *exercise
+    volumes:
+      - ./exercises/legacy_code/sorting:/sorting
+      - sorting_node_modules:/sorting/node_modules
+    working_dir: /sorting
+
+  shop:
+    <<: *exercise
+    volumes:
+      - ./exercises/legacy_code/shop:/shop
+      - shop_node_modules:/shop/node_modules
+    working_dir: /shop
+
+  ai_shop:
+    <<: *exercise
+    volumes:
+      - ./exercises/legacy_code/ai_shop:/ai_shop
+      - ai_shop_node_modules:/ai_shop/node_modules
+    working_dir: /ai_shop
+
 volumes:
   introduction_to_tdd_node_modules:
   specifying_behaviour_node_modules:
   failing_well_node_modules:
   inside_out_tdd_node_modules:
   test_data_node_modules:
+  sorting_node_modules:
+  shop_node_modules:
+  ai_shop_node_modules:
