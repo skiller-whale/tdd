@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { WordleGame } from "../src/game.js";
+import { WordleGame } from "../src/WordleGame.js";
 import { evaluateGuess } from "../src/evaluateGuess.js";
 
 describe("WordleGame", () => {
