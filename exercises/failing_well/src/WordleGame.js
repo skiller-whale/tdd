@@ -34,7 +34,7 @@ export class WordleGame {
 
     const validationResult = validateGuess(guess, this.wordList);
     if (!validationResult.valid) {
-      throw new Error(validationResult.error);
+      throw new Error(validationResult.reason);
     }
 
     const evaluation = evaluateGuess(guess, this.correctAnswer);
